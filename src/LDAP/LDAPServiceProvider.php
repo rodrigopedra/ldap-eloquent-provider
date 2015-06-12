@@ -4,7 +4,7 @@ namespace RodrigoPedra\LDAP;
 
 use Illuminate\Support\ServiceProvider;
 
-class ADAuthProvider extends ServiceProvider
+class LDAPServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.

@@ -15,37 +15,37 @@ composer require rodrigopedra/ldap-eloquent-auth
 In your terminal/shell run
 
 ```
-php artisan vendor:publish --provider="RodrigoPedra\LDAPServiceProvider"
+php artisan vendor:publish --provider="RodrigoPedra\LDAP\LDAPServiceProvider"
 ```
 
 Then change this values in your files:
 
 ```php
-    // in your config/app.php add the provider to the service providers key
+// in your config/app.php add the provider to the service providers key
+
+'providers' => [
+    /* ... */
     
-    'providers' => [
-        /* ... */
-        
-        'RodrigoPedra/LDAPServiceProvider',
-    ]
+    'RodrigoPedra/LDAPServiceProvider',
+]
 ```
 
 ```php
-    // in your config/auth.php
-    'driver' => 'ldap-auth',
+// in your config/auth.php
+'driver' => 'ldap-auth',
 ```
 
 ```php
-    // in your config/ldap.php
-    'server' => 'YOUR-LDAP-SERVER',
-    'domain' => 'YOUR-LDAP-DOMAIN',
+// in your config/ldap.php
+'server' => 'YOUR-LDAP-SERVER',
+'domain' => 'YOUR-LDAP-DOMAIN',
 ```
 
 Also, add a username field to your user migration
 
 ```php
-    // create_user_table migration
-    $table->string('username');
+// create_user_table migration
+$table->string('username');
 ```
 
 ### License
