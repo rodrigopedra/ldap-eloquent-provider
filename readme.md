@@ -45,7 +45,7 @@ Also, add a username field to your user migration
 
 ```php
 // create_user_table migration
-$table->string('username');
+$table->string('username')->unique();
 ```
 
 ### License
