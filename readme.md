@@ -26,7 +26,7 @@ Then change this values in your files:
 'providers' => [
     /* ... */
     
-    'RodrigoPedra/LDAPServiceProvider',
+    'RodrigoPedra\LDAP\LDAPServiceProvider',
 ]
 ```
 
