@@ -9,7 +9,8 @@ use Illuminate\Contracts\Auth\Authenticatable as UserContract;
  * Class LDAPUserProvider
  *
  * based on a gist by github's user rezen
- * @see https://gist.github.com/rezen/ee5451eabea6e581256a
+ *
+ * @see     https://gist.github.com/rezen/ee5451eabea6e581256a
  *
  * @package RodrigoPedra\LDAP
  */
@@ -135,13 +136,17 @@ class LDAPUserProvider implements UserProvider
      */
     protected function validateWithLDAP( array $credentials )
     {
-        $server = config('ldap.server', false);
+        $server = config( 'ldap.server', false );
 
-        if (empty($server)) {
-            throw new LDAPException('LDAP server missing');
+        if ($server === 'pretend') {
+            return true;
         }
 
-        $ldap   = ldap_connect( $server );
+        if (empty( $server )) {
+            throw new LDAPException( 'LDAP server missing' );
+        }
+
+        $ldap = ldap_connect( $server );
 
         $domain = config( 'ldap.domain', false );
         $domain = ( $domain ) ? "{$domain}\\" : '';
