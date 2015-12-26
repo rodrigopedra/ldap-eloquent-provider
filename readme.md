@@ -32,7 +32,21 @@ Then change this values in your files:
 
 ```php
 // in your config/auth.php
-'driver' => 'ldap-auth',
+
+    'guards' => [
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'ldap',
+        ],
+    ],
+
+    'providers' => [
+        'ldap' => [
+            'driver' => 'ldap-auth',
+            'model' => App\User::class,
+        ],
+    ],
+
 ```
 
 ```php
