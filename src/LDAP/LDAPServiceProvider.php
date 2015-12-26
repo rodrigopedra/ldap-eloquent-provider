@@ -15,7 +15,7 @@ class LDAPServiceProvider extends ServiceProvider
     {
         $this->publishes( [ __DIR__ . '/config.php' => config_path( 'ldap.php' ) ] );
 
-        $this->app[ 'auth' ]->extend( 'ldap-auth', function () {
+        $this->app[ 'auth' ]->provider( 'ldap-auth', function () {
             return new LDAPUserProvider( $this->app[ 'config' ][ 'auth.model' ] );
         } );
     }
