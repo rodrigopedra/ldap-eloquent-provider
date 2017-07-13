@@ -50,9 +50,24 @@ Then change this values in your files:
 ```
 
 ```php
+<?php
+
 // in your config/ldap.php
-'server' => 'YOUR-LDAP-SERVER',
-'domain' => 'YOUR-LDAP-DOMAIN',
+return [
+    'servers' => [
+        'default' => [
+            'server' => env( 'LDAP_SERVER' ),
+            'domain' => env( 'LDAP_DOMAIN' ),
+        ],
+        'other' => [
+            'server' => 'OTHER_SERVER',
+            'domain' => 'OTHER_DOMAIN',
+        ], 
+        // ...
+        // you can specify multiple servers, the driver will   
+        // try to log the user in the order specified here
+    ],
+];
 ```
 
 Also, add a username field to your user migration
@@ -64,4 +79,4 @@ $table->string('username')->unique();
 
 ### License
 
-This package is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+This package is open-sourced software licensed under the [MIT license](LICENSE.md)

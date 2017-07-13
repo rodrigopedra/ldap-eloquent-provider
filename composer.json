@@ -18,6 +18,5 @@
     "psr-4": {
       "RodrigoPedra\\": "src/"
     }
-  },
-  "minimum-stability": "dev"
+  }
 }

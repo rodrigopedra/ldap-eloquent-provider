@@ -111,7 +111,22 @@ class LDAPUserProvider implements UserProvider
      */
     public function validateCredentials( UserContract $user, array $credentials )
     {
-        return $user->exists && $this->validateWithLDAP( $credentials );
+        if (!$user->exists) {
+            return false;
+        }
+
+        $ldapServers = config( 'ldap.servers' );
+
+        foreach ($ldapServers as $name => $config) {
+            $server = array_get( $config, 'server', false );
+            $domain = array_get( $config, 'domain', false );
+
+            if ($this->validateWithLDAP( $credentials, $server, $domain ) === true) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -131,13 +146,14 @@ class LDAPUserProvider implements UserProvider
      *
      * @param  array $credentials - passes in username / password
      *
+     * @param        $server
+     * @param        $domain
+     *
      * @return bool
      * @throws LDAPException
      */
-    protected function validateWithLDAP( array $credentials )
+    protected function validateWithLDAP( array $credentials, $server, $domain )
     {
-        $server = config( 'ldap.server', false );
-
         if ($server === 'pretend') {
             return true;
         }
@@ -148,7 +164,6 @@ class LDAPUserProvider implements UserProvider
 
         $ldap = ldap_connect( $server );
 
-        $domain = config( 'ldap.domain', false );
         $domain = ( $domain ) ? "{$domain}\\" : '';
 
         /**
